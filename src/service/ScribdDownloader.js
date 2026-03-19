@@ -24,7 +24,7 @@ class ScribdDownloader {
     async execute(url) {
         let fn = this.embedsDefault.bind(this)
         if (url.match(scribdRegex.DOCUMENT)) {
-            await fn(`https://www.scribd.com/embeds/${scribdRegex.DOCUMENT.exec(url)[2]}/content`)
+            await fn(`https://www.scribd.com/embeds/${scribdRegex.DOCUMENT.exec(url)[3]}/content`)
         } else if (url.match(scribdRegex.EMBED)) {
             await fn(url)
         } else {
@@ -40,7 +40,7 @@ class ScribdDownloader {
         if (!m) {
             throw new Error(`Unsupported URL: ${url}`)
         }
-        const id = m[1]
+        const id = m[2]
         const page = await puppeteerSg.getPage(url)
         try {
             const {title, pages} = await this.processPage(page);
